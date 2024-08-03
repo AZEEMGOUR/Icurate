@@ -1,0 +1,157 @@
+/* General reset and full height/width setup */
+body {
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Container for full height and flexbox layout */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Main content area with flex display */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Flex container for canvas and sidebar */
+.canvas-sidebar-container {
+  display: flex;
+  flex: 1;
+  padding-top: 70px;
+}
+
+/* Styles for the vertical toolbar on the left */
+.main-toolbar {
+  width: 60px;
+  background: #333;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+/* Styles for the sidebar */
+.sidebar {
+  width: 300px; /* Adjust as needed */
+  background: #2e2e2e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+/* Flex container for canvas and toolbar */
+.canvas-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 60px; /* Offset for the toolbar */
+}
+
+/* Styles for the horizontal toolbar at the top */
+.canvas-toolbar {
+  width: calc(100% - 360px); /* Full width minus sidebar and toolbar width */
+  background: #333;
+  color: white;
+  height: 40px; /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 60px; /* Offset for the main toolbar */
+  z-index: 999;
+}
+
+/* Flex container for the canvas */
+.canvas-container {
+  flex: 1;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 60px; /* Offset for the toolbar */
+  margin-top: 40px; /* Offset for the canvas-toolbar */
+  height: calc(100vh - 40px); /* Full height minus the canvas-toolbar height */
+}
+
+/* Canvas styles */
+canvas {
+  background: black;
+  width: 100%;
+  height: 100%;
+  display: block; /* Ensure no extra space around the canvas */
+  border: none;
+}
+
+/* Custom styles for icons and other elements */
+.custom-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.sidebar .icon-row button,
+.sidebar .icon-row mat-checkbox,
+.sidebar .radio-group mat-radio-button {
+  color: white;
+}
+
+.sidebar .layer-name,
+.sidebar .data-type-name {
+  font-family: Arial, sans-serif;
+}
+
+/* Adjusting the sidebar opener */
+.sidebar-opener {
+  position: fixed;
+  left: -25px; /* Adjust as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  background: #333;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.sidebar-opener mat-icon {
+  font-size: 18px; /* Adjust the size of the icon */
+}
+
+/* Adjusting for smaller icon sizes in the layer-icons */
+.layer-icons button {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 0;
+  padding: 0;
+  line-height: 0;
+}
+
+.layer-icons .small-icon {
+  width: 10px;
+  height: 10px;
+}
+
+.layer-icons button + button {
+  margin-top: 0px;
+}

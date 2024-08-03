@@ -1,0 +1,19 @@
+.toolbar {
+    background: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    width: 60px; /* Adjust the width as needed */
+    align-items: center;
+    padding-top: 70px; /* Adjust as needed */
+  }
+  
+  .mat-icon-button {
+    height: 40px; /* Adjust size as needed */
+    margin-bottom: 10px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  

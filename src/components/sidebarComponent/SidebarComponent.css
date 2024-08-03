@@ -1,0 +1,348 @@
+.sidebar {
+    width: 350px;
+    height: calc(100vh - 50px); /* Adjust height to be less than full height to accommodate top padding */
+    background-color: #333;
+    color: white;
+    transition: width 0.3s;
+    overflow: hidden;
+    position: absolute; /* Changed from fixed to absolute */
+    right: 0;
+    top: 50px; /* Adjust the top position to start after the toolbar */
+    padding: 10px; /* Add padding to the sidebar */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+.layer-visibility{
+    margin-right: 5px;
+}
+.sidebar.closed {
+    width: 20px;
+}
+
+.sidebar-opener {
+    width: 20px;
+    height: 100%;
+    background-color: #444;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Ensure it stays fixed when the sidebar is closed */
+    top: 50%;
+    left: -7px; /* Position it just outside the sidebar */
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.icon-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-search {
+    margin-top: 10px;
+}
+
+.layer-controls {
+    margin-top: 10px;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.add-layer-form, .edit-layer-form {
+    background-color: #444;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.layer-name,
+.data-type-name,
+.layer-number,
+.data-type-number {
+  flex: 1;
+  
+}
+.layer-info {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+.info-row {
+    display: flex;
+  }
+.layer-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+.layer-column {
+    flex: 1;
+    text-align: center; /* Center-align the text in each column */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.layer-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.layer-name {
+    flex: none;
+    width: 6ch; /* Reserves space for 10 characters */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.data-type-name {
+    /*padding-left: 15px;*/
+    flex: none;
+    width: 6ch; /* Reserves space for 10 characters */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+.layer-number {
+    padding-left: 5px;
+  }
+  
+.data-type-number {
+    padding-left: 5px;
+  }
+.icon-box {
+    width: 10%; /* Adjust width as needed */
+}
+.layer-name,
+.data-type-name {
+  font-family: Arial, sans-serif;
+}
+
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.layer-item-container {
+    margin-top: 10px;
+    overflow-y: auto; /* Add overflow-y to make the container scrollable */
+    max-height: 60vh; /* Adjust this value as needed to fit your layout */
+}
+
+.layer-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    background-color: #555;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.layer-item.selected-layer {
+    background-color: #272525;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    border: 1px solid white;
+    position: relative;
+}
+
+.pattern-box {
+    width: 100%;
+    height: 100%;
+}
+
+.layer-details {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.layer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-row {
+    display: flex;
+    gap: 5px;
+}
+
+.layer-icons {
+    display: flex;
+    gap: 5px;
+}
+.layer-eye-icon{
+    margin-right: 5px;
+    background-color: #555;
+}
+.layer-lock-icon{
+    background-color: #555;
+}
+
+button {
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+input[type="text"], input[type="color"], input[type="number"], input[type="range"], select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #666;
+    border-radius: 3px;
+    background-color: #555;
+    color: white;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+.input-datatype-name {
+    width: 8ch;
+    font-family: monospace;
+}
+
+.input-layer-number,
+.input-datatype-number {
+    width: 3ch;
+    font-family: monospace;
+}
+.form-row-inline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px; /* Add some space between the inputs */
+    
+}
+/* SidebarComponent.css */
+/* ...other styles... */
+
+.sidebar-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #555;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    margin: 0 2px;
+}
+
+.tab-button:hover {
+    background-color: #666;
+}
+
+.tab-button.active {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+/* ...other styles... */

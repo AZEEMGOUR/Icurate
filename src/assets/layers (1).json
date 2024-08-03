@@ -1,0 +1,772 @@
+{
+  "layers": [
+    {
+      "layer_number": 1,
+      "datatype_number": 0,
+      "layer_name": "NW",
+      "datatype_name": "drawing",
+      "color": "#F96109",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 2,
+      "datatype_number": 0,
+      "layer_name": "PW",
+      "datatype_name": "drawing",
+      "color": "#DCC275",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 3,
+      "datatype_number": 0,
+      "layer_name": "NP",
+      "datatype_name": "drawing",
+      "color": "#54D32A",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 4,
+      "datatype_number": 0,
+      "layer_name": "PP",
+      "datatype_name": "drawing",
+      "color": "#99BBBB",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 5,
+      "datatype_number": 0,
+      "layer_name": "Diff",
+      "datatype_name": "drawing",
+      "color": "#D12DBF",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 6,
+      "datatype_number": 0,
+      "layer_name": "Poly",
+      "datatype_name": "drawing",
+      "color": "#1E0A9B",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 7,
+      "datatype_number": 0,
+      "layer_name": "CA",
+      "datatype_name": "drawing",
+      "color": "#CEEA41",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 7,
+      "datatype_number": 4,
+      "layer_name": "CA",
+      "datatype_name": "obstruction",
+      "color": "#6F7814",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 8,
+      "datatype_number": 0,
+      "layer_name": "CB",
+      "datatype_name": "drawing",
+      "color": "#92E98A",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 8,
+      "datatype_number": 4,
+      "layer_name": "CB",
+      "datatype_name": "obstruction",
+      "color": "#2188A7",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 0,
+      "layer_name": "M0",
+      "datatype_name": "drawing",
+      "color": "#5648A7",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 1,
+      "layer_name": "M0",
+      "datatype_name": "drawingA",
+      "color": "#96B19E",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 2,
+      "layer_name": "M0",
+      "datatype_name": "drawingB",
+      "color": "#130F70",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 3,
+      "layer_name": "M0",
+      "datatype_name": "pin",
+      "color": "#D770FC",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 4,
+      "layer_name": "M0",
+      "datatype_name": "obstruction",
+      "color": "#3CC396",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 9,
+      "datatype_number": 5,
+      "layer_name": "M0",
+      "datatype_name": "fill",
+      "color": "#884048",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 0,
+      "layer_name": "M1",
+      "datatype_name": "drawing",
+      "color": "#63EA88",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 1,
+      "layer_name": "M1",
+      "datatype_name": "drawingA",
+      "color": "#573BD0",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 2,
+      "layer_name": "M1",
+      "datatype_name": "drawingB",
+      "color": "#5B7AE3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 3,
+      "layer_name": "M1",
+      "datatype_name": "pin",
+      "color": "#530A87",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 4,
+      "layer_name": "M1",
+      "datatype_name": "obstruction",
+      "color": "#42A5F0",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 11,
+      "datatype_number": 5,
+      "layer_name": "M1",
+      "datatype_name": "fill",
+      "color": "#FFEBE9",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 0,
+      "layer_name": "M2",
+      "datatype_name": "drawing",
+      "color": "#8762F5",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 1,
+      "layer_name": "M2",
+      "datatype_name": "drawingA",
+      "color": "#FE529F",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 2,
+      "layer_name": "M2",
+      "datatype_name": "drawingB",
+      "color": "#6F2ED7",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 3,
+      "layer_name": "M2",
+      "datatype_name": "pin",
+      "color": "#C1B750",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 4,
+      "layer_name": "M2",
+      "datatype_name": "obstruction",
+      "color": "#4C08D0",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 13,
+      "datatype_number": 5,
+      "layer_name": "M2",
+      "datatype_name": "fill",
+      "color": "#9BF427",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 15,
+      "datatype_number": 0,
+      "layer_name": "M3",
+      "datatype_name": "drawing",
+      "color": "#C718EB",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 15,
+      "datatype_number": 3,
+      "layer_name": "M3",
+      "datatype_name": "pin",
+      "color": "#763AD2",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 15,
+      "datatype_number": 4,
+      "layer_name": "M3",
+      "datatype_name": "obstruction",
+      "color": "#F83A8F",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 15,
+      "datatype_number": 5,
+      "layer_name": "M3",
+      "datatype_name": "fill",
+      "color": "#BB55F3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 17,
+      "datatype_number": 0,
+      "layer_name": "M4",
+      "datatype_name": "drawing",
+      "color": "#41B2D3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 17,
+      "datatype_number": 3,
+      "layer_name": "M4",
+      "datatype_name": "pin",
+      "color": "#FBA6B0",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 17,
+      "datatype_number": 4,
+      "layer_name": "M4",
+      "datatype_name": "obstruction",
+      "color": "#C18A57",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 17,
+      "datatype_number": 5,
+      "layer_name": "M4",
+      "datatype_name": "fill",
+      "color": "#EEBC41",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 19,
+      "datatype_number": 0,
+      "layer_name": "M5",
+      "datatype_name": "drawing",
+      "color": "#736C82",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 19,
+      "datatype_number": 3,
+      "layer_name": "M5",
+      "datatype_name": "pin",
+      "color": "#382A9E",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 19,
+      "datatype_number": 4,
+      "layer_name": "M5",
+      "datatype_name": "obstruction",
+      "color": "#E9E1A8",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 19,
+      "datatype_number": 5,
+      "layer_name": "M5",
+      "datatype_name": "fill",
+      "color": "#090967",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 10,
+      "datatype_number": 0,
+      "layer_name": "V1",
+      "datatype_name": "drawing",
+      "color": "#6DF36F",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 10,
+      "datatype_number": 4,
+      "layer_name": "V1",
+      "datatype_name": "obstruction",
+      "color": "#DA4EC3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 12,
+      "datatype_number": 0,
+      "layer_name": "V2",
+      "datatype_name": "drawing",
+      "color": "#B1CF9B",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 12,
+      "datatype_number": 4,
+      "layer_name": "V2",
+      "datatype_name": "obstruction",
+      "color": "#23081B",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 14,
+      "datatype_number": 0,
+      "layer_name": "V3",
+      "datatype_name": "drawing",
+      "color": "#8A8BB3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 14,
+      "datatype_number": 4,
+      "layer_name": "V3",
+      "datatype_name": "obstruction",
+      "color": "#BC37C5",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 16,
+      "datatype_number": 0,
+      "layer_name": "V4",
+      "datatype_name": "drawing",
+      "color": "#AC534B",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 16,
+      "datatype_number": 4,
+      "layer_name": "V4",
+      "datatype_name": "obstruction",
+      "color": "#3F88CB",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 18,
+      "datatype_number": 0,
+      "layer_name": "V5",
+      "datatype_name": "drawing",
+      "color": "#4EAA1C",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 18,
+      "datatype_number": 4,
+      "layer_name": "V5",
+      "datatype_name": "obstruction",
+      "color": "#29ED9A",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "cross",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 31,
+      "datatype_number": 0,
+      "layer_name": "Fin",
+      "datatype_name": "drawing",
+      "color": "#AE3240",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 32,
+      "datatype_number": 0,
+      "layer_name": "OutL",
+      "datatype_name": "drawing",
+      "color": "#1C8ADD",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 33,
+      "datatype_number": 0,
+      "layer_name": "BBox",
+      "datatype_name": "drawing",
+      "color": "#E633C3",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 34,
+      "datatype_number": 0,
+      "layer_name": "Text",
+      "datatype_name": "drawing",
+      "color": "#8DB00F",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 101,
+      "datatype_number": 0,
+      "layer_name": "Marker1",
+      "datatype_name": "drawing",
+      "color": "#C36CBE",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 102,
+      "datatype_number": 0,
+      "layer_name": "Marker2",
+      "datatype_name": "drawing",
+      "color": "#B81570",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "empty_fill",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 103,
+      "datatype_number": 0,
+      "layer_name": "Marker3",
+      "datatype_name": "drawing",
+      "color": "#36F809",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 104,
+      "datatype_number": 0,
+      "layer_name": "Marker4",
+      "datatype_name": "drawing",
+      "color": "#5A6AA8",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 105,
+      "datatype_number": 0,
+      "layer_name": "Marker5",
+      "datatype_name": "drawing",
+      "color": "#5BD5CF",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 106,
+      "datatype_number": 0,
+      "layer_name": "Marker6",
+      "datatype_name": "drawing",
+      "color": "#5D3875",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "vertical_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 107,
+      "datatype_number": 0,
+      "layer_name": "Marker7",
+      "datatype_name": "drawing",
+      "color": "#5965A4",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 108,
+      "datatype_number": 0,
+      "layer_name": "Marker8",
+      "datatype_name": "drawing",
+      "color": "#6B13F1",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "dotted",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 109,
+      "datatype_number": 0,
+      "layer_name": "Marker9",
+      "datatype_name": "drawing",
+      "color": "#B8561F",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "rev_diagonal_lines",
+        "opacity": 0.5
+      }
+    },
+    {
+      "layer_number": 110,
+      "datatype_number": 0,
+      "layer_name": "DRC",
+      "datatype_name": "drawing",
+      "color": "#5C7AFD",
+      "boundaryColor": "#000000",
+      "pattern": {
+        "type": "horizontal_lines",
+        "opacity": 0.5
+      }
+    }
+  ]
+}

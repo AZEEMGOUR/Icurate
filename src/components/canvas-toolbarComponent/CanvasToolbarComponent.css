@@ -1,0 +1,17 @@
+.canvas-toolbar {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+  }
+  
+  .mat-icon-button {
+    color: white;
+  }
+  
+  .custom-icon {
+    width: 24px;
+    height: 24px;
+    filter: invert(1); /* This will invert the color of the images to white */
+  }
+  
