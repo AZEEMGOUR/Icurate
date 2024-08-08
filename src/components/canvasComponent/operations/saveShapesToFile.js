@@ -17,10 +17,10 @@ const convertShapesToLayoutData = (shapes, projectName) => {
                         layer_number: shape.layerId,
                         datatype_number: 0,
                         coordinates: [
-                            [shape.x, shape.y + shape.height],
-                            [shape.x + shape.width, shape.y + shape.height],
-                            [shape.x + shape.width, shape.y],
-                            [shape.x, shape.y]
+                            [shape.x, -shape.y + shape.height],
+                            [shape.x + shape.width, -shape.y + shape.height],
+                            [shape.x + shape.width, -shape.y],
+                            [shape.x, -shape.y]
                             
                         ]
                     }))

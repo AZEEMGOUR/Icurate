@@ -1,0 +1,45 @@
+.shape-properties-container {
+    padding: 15px;
+    background-color: #2c2c2c;
+    color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    font-family: Arial, sans-serif;
+  }
+  
+  .shape-properties-header {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #ff9800;
+  }
+  
+  .shape-property {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .shape-property label {
+    font-weight: bold;
+    color: #ffcc80;
+  }
+  
+  .shape-property span {
+    color: #ffffff;
+    background-color: #424242;
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+  
+  .shape-properties-empty {
+    text-align: center;
+    color: #ffcc80;
+    font-size: 16px;
+    padding: 20px;
+    background-color: #2c2c2c;
+    border-radius: 8px;
+  }
+  

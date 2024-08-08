@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konva.js Quadrant Shapes</title>
+  <script src="https://cdn.jsdelivr.net/npm/konva@8.3.9/konva.min.js"></script>
+</head>
+<body>
+  <div id="container" style="width: 100vw; height: 100vh; border: 1px solid black;"></div>
+  
+  <script>
+    // Initialize the Konva stage
+    const stage = new Konva.Stage({
+      container: 'container', // The ID of your container div
+      width: window.innerWidth,
+      height: window.innerHeight
+    });
+
+    // Create a layer
+    const layer = new Konva.Layer();
+    stage.add(layer);
+
+    // Center the origin of the layer to match the canvas
+    layer.offsetX(stage.width() / 2);
+    layer.offsetY(stage.height() / 2);
+
+    // Add X and Y axes for visual reference
+    const xAxis = new Konva.Line({
+      points: [-stage.width() / 2, 0, stage.width() / 2, 0],
+      stroke: 'black',
+      strokeWidth: 2
+    });
+
+    const yAxis = new Konva.Line({
+      points: [0, -stage.height() / 2, 0, stage.height() / 2],
+      stroke: 'black',
+      strokeWidth: 2
+    });
+
+    layer.add(xAxis);
+    layer.add(yAxis);
+
+    // First Quadrant (++): Top-Right with Positive X and Positive Y
+    const rect1 = new Konva.Rect({
+      x: 50,   // Positive X
+      y: 50,   // Positive Y
+      width: 50,
+      height: 50,
+      fill: 'red',
+      stroke: 'black',
+      strokeWidth: 2
+    });
+    layer.add(rect1);
+
+    // Second Quadrant (-+): Top-Left
+    const rect2 = new Konva.Rect({
+      x: -100, // Negative X
+      y: 50,   // Positive Y
+      width: 50,
+      height: 50,
+      fill: 'blue',
+      stroke: 'black',
+      strokeWidth: 2
+    });
+    layer.add(rect2);
+
+    // Third Quadrant (--): Bottom-Left
+    const rect3 = new Konva.Rect({
+      x: -100, // Negative X
+      y: -100, // Negative Y
+      width: 50,
+      height: 50,
+      fill: 'green',
+      stroke: 'black',
+      strokeWidth: 2
+    });
+    layer.add(rect3);
+
+    // Fourth Quadrant (+-): Bottom-Right
+    const rect4 = new Konva.Rect({
+      x: 50,   // Positive X
+      y: -100, // Negative Y
+      width: 50,
+      height: 50,
+      fill: 'yellow',
+      stroke: 'black',
+      strokeWidth: 2
+    });
+    layer.add(rect4);
+
+    // Draw the layer
+    layer.draw();
+  </script>
+</body>
+</html>

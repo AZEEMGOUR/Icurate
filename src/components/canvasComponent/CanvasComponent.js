@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState, useImperativeHandle, forwardRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Konva from 'konva';
+import { Pixelate } from 'konva/lib/filters/Pixelate';
+import { Contrast } from 'konva/lib/filters/Contrast';
 import { Stage, Layer, Rect, Transformer, Line } from 'react-konva';
 import handleMouseDown from './operations/handleMouseDown';
 import handleMouseMove from './operations/handleMouseMove';
@@ -20,13 +22,14 @@ import { startMoving } from './operations/moveSelectedShapes';
 import DesignNamePopup from './operations/DesignNamePopup';
 import { handleKeyboardCopyPaste } from './operations/handleKeyboardCopyPaste';
 import { handleDragAndDrop } from './operations/handleDragAndDrop';
+import { handleKeyboardDragMode } from './operations/handleKeyboardDragMode';
 import fitToScreen from './operations/fitToScreen';
 
 
 
 import './CanvasComponent.css';
 
-const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility, lockedLayers, shapes, setShapes,setGroupedShapes }, ref) => {
+const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility, lockedLayers, shapes, setShapes,setGroupedShapes,isAllLocked}, ref) => {
   const stageRef = useRef(null);
   const transformerRef = useRef(null);
   const groupRef = useRef(null);
@@ -49,6 +52,13 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
   const [isDraggingMode, setIsDraggingMode] = useState(false);
   const [isDraggingStage, setIsDraggingStage] = useState(false);
   const [lastMousePos, setLastMousePos] = useState({ x: 0, y: 0 });
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [transformers, setTransformers] = useState([]);
+  const [transformerRefs, setTransformerRefs] = useState([]);
+  
+  
+  
+  
   
   
   
@@ -61,19 +71,43 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
 
   useEffect(() => {
     if (selectedLayer) {
-      const updatedShapes = shapes.map(shape => 
-        shape.layerId === selectedLayer.layer_number ? { ...shape, color: selectedLayer.color } : shape
-      );
-      setShapes(updatedShapes);
+        const updatedShapes = shapes.map(shape => {
+            // Ensure that all relevant properties of the layer are considered
+            if (shape.layerId === selectedLayer.layer_number && shape.datatypeId === selectedLayer.datatype_number) {
+                return {
+                    ...shape,
+                    color: selectedLayer.color, // Update color
+                    boundaryColor: selectedLayer.boundaryColor, // Update boundary color
+                    opacity: selectedLayer.pattern.opacity, // Update opacity
+                    pixelSize: selectedLayer.pixelate,
+                    contrast: selectedLayer.contrast,
+                    filters: [Pixelate, Contrast]
+                };
+            }
+            return shape;
+        });
+        setShapes(updatedShapes);
     }
   }, [selectedLayer]);
+
+
+  useEffect(() => {
+    if (layerRef.current) {
+        layerRef.current.batchDraw(); // Redraws the layer when shapes are updated
+    }
+  }, [shapes]);
+
+
   
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Delete') {
         deleteSelectedShapes(shapes, selectedShapes, setShapes, setSelectedShapes);
-        transformerRef.current.nodes([]); // Clear the transformer selection
+         // Clear the transformer selection
+        if (transformerRef.current) {
+          transformerRef.current.nodes([]); // Clear the transformer selection
+        }
       }
   
       handleKeyboardCopyPaste(e, selectedShapes, shapes, setShapes, transformerRef, stageRef);
@@ -86,19 +120,37 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [shapes, selectedShapes]);
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      handleKeyboardDragMode(e, isDraggingMode, setIsDraggingMode, stageRef);  // Handle keyboard drag mode
+    };
 
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDraggingMode]);
   
 
   
 
-
+  useEffect(() => {
+    if (transformerRef.current) {
+      const nodes = selectedShapes.map(shape => layerRef.current.findOne(`#${shape.id}`)).filter(node => node !== undefined);
+      transformerRef.current.nodes(nodes);
+      transformerRef.current.getLayer().batchDraw();
+    }
+  }, [selectedShapes]);
+  
+  
    
   
 
 
 
 
-
+  
 
   const openPopup = (group) => {
     setCurrentGroup(group);
@@ -149,7 +201,9 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
     },
     handleDeleteShapesInternal() {
       deleteSelectedShapes(shapes, selectedShapes, setShapes, setSelectedShapes);
-      transformerRef.current.nodes([]);
+      if (transformerRef.current && transformerRef.current.nodes()) {
+        transformerRef.current.nodes([]); // Clear the transformer selection
+      }
     },
     handleCopyShapesInternal() {
       copySelectedShapes(shapes, selectedShapes, setShapes, setSelectedShapes);
@@ -169,26 +223,44 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
       addEscapeListener(deactivateCropTool, 'c');
     },
     setLayerVisibility(layerNumber, visibility) {
-        const updatedShapes = shapes.map(shape =>
-            shape.layerId === layerNumber ? { ...shape, visible: visibility } : shape
-        );
-        setShapes(updatedShapes);
-    },
-
-    setAllLayersVisibility(isVisible) {
-      const updatedShapes = shapes.map(shape => ({
-        ...shape,
-        visible: isVisible
-      }));
+      const updatedShapes = shapes.map(shape =>
+          shape.layerId === layerNumber ? { ...shape, visible: visibility } : shape
+      );
       setShapes(updatedShapes);
-    },
+  },
+  
+
+  setAllLayersVisibility(isVisible) {
+    const updatedShapes = shapes.map(shape => ({
+      ...shape,
+      visible: isVisible
+    }));
+    setShapes(updatedShapes);
+  },
     lockShapesInLayer(layer) {
         const updatedShapes = shapes.map(shape => (shape.layerId === layer.layer_number ? { ...shape, draggable: false } : shape));
         setShapes(updatedShapes);
     },
+    lockAllShapes() {
+      const updatedShapes = shapes.map((shape) => ({ ...shape, draggable: false }));
+      setShapes(updatedShapes);
+    },
+    unlockAllShapes() {
+      const updatedShapes = shapes.map((shape) => ({ ...shape, draggable: true }));
+      setShapes(updatedShapes);
+    },
+    lockShapesInLayer(layer) {
+      alert("layerlocked")
+      const updatedShapes = shapes.map((shape) =>
+        shape.layerId === layer.layer_number ? { ...shape, draggable: false } : shape
+      );
+      setShapes(updatedShapes);
+    },
     unlockShapesInLayer(layer) {
-        const updatedShapes = shapes.map(shape => (shape.layerId === layer.layer_number ? { ...shape, draggable: true } : shape));
-        setShapes(updatedShapes);
+      const updatedShapes = shapes.map((shape) =>
+        shape.layerId === layer.layer_number ? { ...shape, draggable: true } : shape
+      );
+      setShapes(updatedShapes);
     },
     fitToScreen() {
       alert("ref call")
@@ -197,7 +269,10 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
         fitToScreen(stageRef.current, layerRef.current, shapes);
         
       }
-    }
+    },
+    getSelectedShapes() {
+      return selectedShapes.length > 0 ? selectedShapes[0] : null;
+    },
   }));
   
 
@@ -238,138 +313,194 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
       setShapes(newShapes);
     }
   };
+  const isShapeDraggable = (shape) => {
+      const isLayerLocked = lockedLayers[`${shape.layerId}-${shape.datatypeId}`];
+      return !rectangleToolActive && !isResizing && !isLayerLocked && !isAllLocked;
+    };
 
-  const handleResize = (e) => {
-    const node = transformerRef.current.node();
-    const newAttrs = node.getAttrs();
-    const newShapes = shapes.map(shape => shape === selectedShapes[0] ? { ...shape, ...newAttrs } : shape);
+  const handleResize = () => {
+    if (!transformerRef.current) return;
+
+    const nodes = transformerRef.current.nodes();
+    if (!nodes || nodes.length === 0) return;
+
+    const newShapes = shapes.map(shape => {
+        const node = nodes.find(n => n.id() === shape.id);
+        if (node) {
+            // Update shape properties based on the transformer's node
+            return { 
+                ...shape, 
+                x: node.x(), 
+                y: node.y(),
+                width: node.width(), 
+                height: node.height(),
+                scaleX: node.scaleX(), 
+                scaleY: node.scaleY()
+            };
+        }
+        return shape;
+    });
+
     setShapes(newShapes);
-  };
+
+    // Reset the scale on the nodes after resizing
+    nodes.forEach(node => {
+        node.scaleX(1);
+        node.scaleY(1);
+    });
+
+    transformerRef.current.getLayer().batchDraw();
+};
+
   
   
 
-  const onSelectShape = (e, shape) => {
-    const transformerNode = transformerRef.current;
-  
-    // Check if the clicked target is part of the Transformer handles
-    if (e.target.getParent() && e.target.getParent().className === 'Transformer') {
-      return; // Prevent selection change if interacting with resize/rotate handles
-    }
-  
-    // Log the shape being selected (for debugging purposes)
-    console.log('Shape being selected:', shape);
-  
+  const onSelectShape = (shape, isCtrlPressed) => {
     if (shape instanceof window.Konva.Rect || shape instanceof window.Konva.Line) {
-      setSelectedShapes([shape]);
-      transformerNode.nodes([shape]); // Attach the Transformer to the shape
-      transformerNode.getLayer().batchDraw();
+      setSelectedShapes(prevSelectedShapes => {
+        if (isCtrlPressed) {
+          // Handle multi-selection with Ctrl key
+          if (prevSelectedShapes.includes(shape)) {
+            return prevSelectedShapes.filter(s => s !== shape);
+          } else {
+            return [...prevSelectedShapes, shape];
+          }
+        } else {
+          // Handle single selection
+          return [shape];
+        }
+      });
     }
   };
+
   
-  console.log(window.innerWidth, window.innerHeight)
+
+
   
+  
+
+  
+  
+  
+
   return (
     <div className="canvas-container">
       <Stage
-        draggable={true}
+        draggable={false}
         width={window.innerWidth}
         height={window.innerHeight}
-        onMouseDown={(e) => handleMouseDown(e, setIsDrawing, setNewShape, selectedLayer, setSelectedShapes, shapes, selectedShapes, rectangleToolActive, transformerRef)}
-        onMouseMove={(e) => handleMouseMove(e, isDrawing, newShape, setNewShape, isDraggingMode, selectedShapes, stageRef)}
-      
-        onMouseUp={() => handleMouseUp(isDrawing, newShape, setShapes, setNewShape, setIsDrawing)}
+        onMouseDown={(e) => handleMouseDown(e, setIsDrawing, setNewShape, selectedLayer, setSelectedShapes, shapes, selectedShapes, rectangleToolActive, transformerRef,lockedLayers,isAllLocked)}
+        onMouseMove={(e) => handleMouseMove(e, isDrawing, newShape, setNewShape, isDraggingMode, selectedShapes, stageRef, lockedLayers, isAllLocked)}
+        onMouseUp={() => handleMouseUp(isDrawing, newShape, setShapes, setNewShape, setIsDrawing,isAllLocked)}
         ref={stageRef}
         onWheel={(e) => handleZoom(e, stageRef)}
       >
-        <Layer ref={layerRef} offsetX={-window.innerWidth / 2}  // Negative offsets to move the origin to the center
-    offsetY={-window.innerHeight / 2}
-    x={0}          // Position the layer at the center of the stage
-    y={0} >
+        <Layer
+          ref={layerRef}
+          offsetX={-window.innerWidth / 2} // Negative offsets to move the origin to the center
+          offsetY={-window.innerHeight / 2} 
+          x={0} 
+          y={0}
+        >
           {/* Draw horizontal line */}
           <Line
-            points={[-window.innerWidth*100, 0, window.innerWidth*100, 0]} // Line from far left to far right across the center
+            points={[-window.innerWidth * 100, 0, window.innerWidth * 100, 0]} // Line from far left to far right across the center
             stroke="white"
             strokeWidth={1}
           />
           {/* Draw vertical line */}
           <Line
-            points={[0, -window.innerHeight*100, 0, window.innerHeight*100]} // Line from top to bottom across the center
+            points={[0, -window.innerHeight * 100, 0, window.innerHeight * 100]} // Line from top to bottom across the center
             stroke="white"
             strokeWidth={1}
           />
+  
+  {shapes.map((shape, index) => {
+        const shapeRef = React.createRef();
+        const transformerRef = React.createRef();
 
-          {shapes.map((shape, index) => (
-            shape.visible && (
-              shape.type === 'Polygon' ? (
-                <Line
-                  key={shape.id} 
-                  points={shape.points}
-                  fill={shape.color}
-                  closed
-                  opacity={shape.opacity}
-                  stroke={selectedShapes.includes(shape) ? 'white' : shape.boundaryColor}
-                  strokeWidth={selectedShapes.includes(shape) ? 3 : 2}
-                  dash={selectedShapes.includes(shape) ? [6, 4] : []} // Add dashed border for selected shapes
-                  draggable={!rectangleToolActive && !isResizing}
-
-                  onDragEnd={(e) => handleDragEnd(e, index)}
-                  onMouseEnter={() => handleMouseHover(shape, setHoveredShape)}
-                  onMouseLeave={() => setHoveredShape(null)}
-                  onClick={(e) => onSelectShape(e,shape)}
-                  ref={(node) => {
-                    if (selectedShapes.length === 1 && selectedShapes[0] === shape && node) {
-                      transformerRef.current.nodes([node]);
-                      transformerRef.current.getLayer().batchDraw();
-                    }
-                  }}
-                />
-              ) : (
-                <Rect
-                  key={shape.id} 
-                  x={shape.x}
-                  y={shape.y}
-                  width={shape.width}
-                  height={shape.height}
-                  fill={shape.color}
-                  opacity={shape.opacity}
-                  
-                  stroke={selectedShapes.includes(shape) ? 'white' : shape.boundaryColor}
-                  strokeWidth={selectedShapes.includes(shape) ? 3 : 2}
-                  dash={selectedShapes.includes(shape) ? [6, 4] : []} // Add dashed border for selected shapes
-                  draggable={!rectangleToolActive && !isResizing}
-                  
-                  onDragEnd={(e) => handleDragEnd(e, index)}
-                  onMouseEnter={() => handleMouseHover(shape, setHoveredShape)}
-                  onMouseLeave={() => setHoveredShape(null)}
-                  className="shape"
-                
-                  onClick={(e) => onSelectShape(e,shape)}
-                  ref={(node) => {
-                    if (selectedShapes.length === 1 && selectedShapes[0] === shape && node) {
-                      transformerRef.current.nodes([node]);
-                      transformerRef.current.getLayer().batchDraw();
-                    }
-                  }}
-                />
-              )
-            )
-          ))}
+        //const isShapeDraggable = !rectangleToolActive && !isResizing && !lockedLayers[`${shape.layerId}-${shape.datatypeId}`];
+        return shape.visible && (
+              <React.Fragment key={shape.id}>
+                {shape.type === 'Polygon' ? (
+                  <Line
+                    points={shape.points}
+                    fill={shape.color}
+                    closed
+                    opacity={shape.opacity}
+                    stroke={selectedShapes.includes(shape) ? 'white' : shape.boundaryColor}
+                    strokeWidth={selectedShapes.includes(shape) ? 3 : 2}
+                    dash={selectedShapes.includes(shape) ? [6, 4] : []}
+                    draggable={isShapeDraggable(shape)}
+                    onDragEnd={(e) => handleDragEnd(e, index)}
+                    onMouseEnter={() => handleMouseHover(shape, setHoveredShape)}
+                    onMouseLeave={() => setHoveredShape(null)}
+                    onClick={(e) => onSelectShape(shape, e.evt.ctrlKey || e.evt.metaKey)}
+                    filters={[Konva.Filters.Pixelate, Konva.Filters.Contrast]} // Ensure filters are applied
+                    pixelSize={shape.pixelSize}
+                    contrast={shape.contrast}
+                    id={shape.id}
+                    ref={shapeRef}
+                  />
+                ) : (
+                  <Rect
+                    x={shape.x}
+                    y={shape.y}
+                    width={shape.width}
+                    height={shape.height}
+                    fill={shape.color}
+                    opacity={shape.opacity}
+                    draggable={isShapeDraggable(shape)}
+                    onDragEnd={(e) => handleDragEnd(e, index)}
+                    onMouseEnter={() => handleMouseHover(shape, setHoveredShape)}
+                    onMouseLeave={() => setHoveredShape(null)}
+                    className="shape"
+                    visible={shape.visible}
+                    onClick={(e) => onSelectShape(shape, e.evt.ctrlKey || e.evt.metaKey)}
+                    filters={[Konva.Filters.Pixelate, Konva.Filters.Contrast]} // Ensure filters are applied
+                    pixelSize={shape.pixelSize}
+                    contrast={shape.contrast}
+                    id={shape.id}
+                    ref={shapeRef}
+                  />
+                )}
+                {selectedShapes.includes(shape) && (
+              <Transformer
+                ref={(ref) => {
+                  if (ref) {
+                    ref.nodes([shapeRef.current]);
+                    ref.getLayer().batchDraw();
+                  }
+                }}
+                resizeEnabled={true}
+                rotateEnabled={true}
+                rotateAnchorOffset={60}
+                enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right', 'middle-left', 'middle-right']}
+                boundBoxFunc={(oldBox, newBox) => {
+                  if (newBox.width < 5 || newBox.height < 5) {
+                    return oldBox;
+                  }
+                  return newBox;
+                }}
+                onTransformEnd={handleResize}
+              />
+        )}
+              </React.Fragment>
+            );
+          })}
           {newShape && (
             <Rect
-              
               x={newShape.x}
               y={newShape.y}
               width={newShape.width}
               height={newShape.height}
               fill={newShape.color}
               opacity={newShape.opacity}
-              stroke={newShape.boundaryColor}
-              strokeWidth={2}
-              dash={newShape.pattern === 'dotted' ? [2, 2] : []}
               draggable={!rectangleToolActive && !isCropping && !isResizing}
             />
           )}
-          <Transformer ref={transformerRef} onTransformEnd={handleResize} />
+
+          
         </Layer>
       </Stage>
       
@@ -380,7 +511,6 @@ const CanvasComponent = forwardRef(({ selectedLayer, allLayers, layerVisibility,
         accept=".json"
         style={{ display: 'none' }}
       />
-      
     </div>
   );
 });

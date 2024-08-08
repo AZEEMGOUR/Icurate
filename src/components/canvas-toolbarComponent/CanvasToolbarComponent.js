@@ -38,18 +38,7 @@ const CanvasToolbarComponent = ({ onDeleteClick , onCopyClick,onSaveClick, onLoa
       <button className="mat-icon-button" onClick={onFitToScreenClick}>
         <Icon>fit_screen</Icon>
       </button>
-      <button className="mat-icon-button">
-        <img src="assets/angle.png" className="custom-icon" alt="angle" />
-      </button>
-      <button className="mat-icon-button">
-        <img src="assets/xaxis.png" className="custom-icon" alt="xaxis" />
-      </button>
-      <button className="mat-icon-button">
-        <img src="assets/ttt.jpg" className="custom-icon" alt="ttt" />
-      </button>
-      <button className="mat-icon-button">
-        <img src="assets/rotate.png" className="custom-icon" alt="rotate" />
-      </button>
+      
       <button className="mat-icon-button">
         <Icon>call_split</Icon>
       </button>

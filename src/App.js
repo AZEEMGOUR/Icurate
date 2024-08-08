@@ -1,14 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import CanvasComponent from './components/canvasComponent/CanvasComponent';
 import CanvasToolbarComponent from './components/canvas-toolbarComponent/CanvasToolbarComponent';
 import SidebarComponent from './components/sidebarComponent/SidebarComponent';
 import ToolbarComponent from './components/toolbarComponent/ToolbarComponent';
-
+import SignIn from './LoginForm';
 import './App.css';
 
 const App = () => {
   const [selectedColor, setSelectedColor] = useState('#000000');
   const [selectedLayer, setSelectedLayer] = useState(null);
+  
   const [layerVisibility, setLayerVisibility] = useState({});
   const [layers, setLayers] = useState([]);
   const [lockedLayers, setLockedLayers] = useState({});
@@ -16,8 +17,24 @@ const App = () => {
   const [shapes, setShapes] = useState([]); 
   const [selectedShapes, setSelectedShapes] = useState([]);
   const [groupedShapes, setGroupedShapes] = useState([]);
+  const [isAllLocked, setIsAllLocked] = useState(false);
+  const [authenticated, setAuthenticated] = useState(
+    () => JSON.parse(localStorage.getItem('authenticated')) || false
+  ); // Persisting authentication state
+  const [activeTab, setActiveTab] = useState('layermap');
+
+
+  
+  
 
   const canvasRef = useRef(null);
+  useEffect(() => {
+    if (canvasRef.current) {
+      const selectedShapes = canvasRef.current.getSelectedShapes();
+      setSelectedShapes(selectedShapes || []);  // Store all selected shapes
+    }
+  }, [shapes, selectedLayer]);
+  
 
   const handleColorChange = (color) => {
     if (selectedLayer) {
@@ -33,6 +50,16 @@ const App = () => {
       setShapes(updatedShapes);
     }
   };
+  const handleToggleAllLock = () => {
+    setIsAllLocked(prev => !prev);
+    if (canvasRef.current) {
+      if (!isAllLocked) {
+        canvasRef.current.lockAllShapes();
+      } else {
+        canvasRef.current.unlockAllShapes();
+      }
+    }
+  };
   
 
   const handleLayerSelected = (layer) => {
@@ -43,34 +70,33 @@ const App = () => {
   const handleToggleLayerVisibility = (layer) => {
     const key = `${layer.layer_number}-${layer.datatype_number}`;
     const newVisibility = !layerVisibility[key];
+    
+    // Update the visibility state for the layer in layerVisibility
     setLayerVisibility((prev) => ({ ...prev, [key]: newVisibility }));
 
-    // Update the visibility of shapes in the layer
+    // Update the visibility of shapes in the layer without affecting other properties
     const updatedShapes = shapes.map(shape => 
-        shape.layerId === layer.layer_number 
+        (shape.layerId === layer.layer_number && shape.datatypeId === layer.datatype_number)
             ? { ...shape, visible: newVisibility } 
             : shape
     );
     setShapes(updatedShapes);
 
+    // Optionally update the visibility at the canvas level if needed
     if (canvasRef.current) {
-      canvasRef.current.setLayerVisibility(layer.layer_number, newVisibility);
+        canvasRef.current.setLayerVisibility(layer.layer_number, newVisibility);
     }
 };
 
 
-  
 
-  const handleToggleAllLayersVisibility = () => {
-    const isVisible = Object.values(layerVisibility).some((visible) => !visible);
-    const newVisibility = Object.keys(layerVisibility).reduce((acc, key) => {
-      acc[key] = isVisible;
-      return acc;
-    }, {});
-    setLayerVisibility(newVisibility);
+const handleToggleAllLayersVisibility = (isVisible) => {
+  if (canvasRef.current) {
     canvasRef.current.setAllLayersVisibility(isVisible);
-  };
+  }
+};
 
+  
   const handleToggleLayerLock = (layer) => {
     const key = `${layer.layer_number}-${layer.datatype_number}`;
     const isLocked = lockedLayers[key];
@@ -171,6 +197,7 @@ const App = () => {
           layerVisibility={layerVisibility}
           lockedLayers={lockedLayers}
           isCropping={isCropping}
+          isAllLocked={isAllLocked}
           setIsCropping={setIsCropping}
           shapes={shapes}
           setShapes={setShapes}
@@ -185,11 +212,16 @@ const App = () => {
           onToggleAllLayersVisibility={handleToggleAllLayersVisibility}
           onLayerUpdated={handleLayerUpdated}
           onToggleLayerLock={handleToggleLayerLock}
+          onToggleAllLock={handleToggleAllLock} 
+          isAllLocked={isAllLocked}
           shapes={shapes} // Pass shapes state
           setShapes={setShapes}
           layerVisibility={layerVisibility}
           lockedLayers={lockedLayers}
           groupedShapes={groupedShapes}
+          selectedShape={Array.isArray(selectedShapes) && selectedShapes.length > 0 ? selectedShapes[0] : null}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
         />
       </div>
     </div>
