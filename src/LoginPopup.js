@@ -26,9 +26,9 @@ const LoginPopup = ({ onClose }) => {
         }
         setLoading(true);
         setError('');
-        
+    
         try {
-            const response = await fetch("http://54.224.177.87/auth/login", {
+            const response = await fetch("http://127.0.0.1:8000/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password })
@@ -57,7 +57,7 @@ const LoginPopup = ({ onClose }) => {
         setError('');
 
         try {
-            const response = await fetch("http://54.224.177.87/auth/signup", {
+            const response = await fetch("http://127.0.0.1:8000/auth/signup", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, password, email })
@@ -86,7 +86,7 @@ const LoginPopup = ({ onClose }) => {
         setError('');
 
         try {
-            const response = await fetch("http://54.224.177.87/auth/verify-otp", {
+            const response = await fetch("http://127.0.0.1:8000/auth/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, otp })
@@ -111,7 +111,7 @@ const LoginPopup = ({ onClose }) => {
         setError('');
 
         try {
-            const response = await fetch("http://54.224.177.87/auth/resend-otp", {
+            const response = await fetch("http://127.0.0.1:8000/auth/resend-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username })
@@ -137,7 +137,7 @@ const LoginPopup = ({ onClose }) => {
         setError('');
 
         try {
-            const response = await fetch("http://54.224.177.87/auth/forgot-password", {
+            const response = await fetch("http://127.0.0.1:8000/auth/forgot-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username })
