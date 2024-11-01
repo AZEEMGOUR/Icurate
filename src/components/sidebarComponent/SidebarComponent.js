@@ -64,7 +64,7 @@ const SidebarComponent = ({
         const loadLayersFromBackend = async () => {
           try {
             const token = localStorage.getItem('access_token'); // Retrieve token from localStorage
-            const response = await fetch('http://127.0.0.1:8000/layers/user/layers', {
+            const response = await fetch('http://44.211.62.166/layers/user/layers', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const SidebarComponent = ({
 
     const loadLayersFromFile = async () => {
         try {
-            const response = await fetch('http://127.0.0.1:8000/layers/user/layers');
+            const response = await fetch('http://44.211.62.166/layers/user/layers');
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -130,7 +130,7 @@ const SidebarComponent = ({
     const saveLayersToBackend = async (layersToSave) => {
         const token = localStorage.getItem('access_token');
         try {
-            const response = await fetch('http://127.0.0.1:8000/layers/user/layers', {
+            const response = await fetch('http://44.211.62.166/layers/user/layers', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ layers: layersToSave })
@@ -162,7 +162,7 @@ const SidebarComponent = ({
 
             try {
                 const token = localStorage.getItem('access_token');
-                const response = await fetch('http://127.0.0.1:8000/upload-layermap', {
+                const response = await fetch('http://44.211.62.166/upload-layermap', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ const SidebarComponent = ({
     const deleteLayerFromBackend = async (layerToDelete) => {
         try {
             const token = localStorage.getItem('access_token');
-            const response = await fetch('http://127.0.0.1:8000/layers/user/layers/delete', {
+            const response = await fetch('http://44.211.62.166/layers/user/layers/delete', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

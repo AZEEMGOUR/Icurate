@@ -137,7 +137,7 @@ useEffect(() => {
 useEffect(() => {
   const checkAuth = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:8000/auth/check-auth', {
+      const response = await fetch('http://44.211.62.166/auth/check-auth', {
         method: 'GET',
         credentials: 'include',
       });
@@ -305,7 +305,7 @@ useEffect(() => {
 const fetchLayers = async () => {
   try {
     const token = localStorage.getItem('access_token');
-    const response = await fetch('http://127.0.0.1:8000/layers/user/layers', {
+    const response = await fetch('http://44.211.62.166/layers/user/layers', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -327,7 +327,7 @@ const fetchLayers = async () => {
 const saveLayersToBackend = async (layersToSave) => {
   const token = localStorage.getItem('access_token');
   try {
-    const response = await fetch('http://127.0.0.1:8000/layers/user/layers', {
+    const response = await fetch('http://44.211.62.166/layers/user/layers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify({ layers: layersToSave })
@@ -425,7 +425,7 @@ const handleProjectNameChange = async (name) => {
               formData.append("file", file);
               
               // Send the file to the backend for conversion
-              const response = await fetch('http://127.0.0.1:8000/convert-gds-to-json', {
+              const response = await fetch('http://44.211.62.166/convert-gds-to-json', {
                   method: 'POST',
                   body: formData,
               });
@@ -606,7 +606,7 @@ const handleSaveAndConvertToGDS = async () => {
       const layoutData = canvasRef.current.getShapes1(projectName);
       const directoryPath = directoryHandle.name;
 
-      const response = await fetch('http://127.0.0.1:8000/convert-and-save-gds', {
+      const response = await fetch('http://44.211.62.166/convert-and-save-gds', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -1234,7 +1234,7 @@ const handleAddDesign = async (designName, x, y, selectedFile) => {
           const formData = new FormData();
           formData.append("file", selectedFile);
 
-          const response = await fetch('http://54.224.177.87/convert-gds-to-json', {
+          const response = await fetch('http://44.211.62.166/convert-gds-to-json', {
               method: 'POST',
               body: formData,
           });
