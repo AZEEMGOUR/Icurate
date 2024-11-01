@@ -1,0 +1,110 @@
+/* Overlay for the modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out; /* Fade in effect */
+}
+
+/* Modal content container */
+.modal-content {
+    background: #2b2b2b; /* Dark background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    animation: slideIn 0.3s ease-in-out; /* Slide in effect */
+    color: #fff;
+}
+
+/* Header styling */
+.modal-content h2 {
+    margin-bottom: 20px;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 26px;
+}
+
+/* Mode button styling */
+.modal-section {
+    margin-bottom: 20px;
+}
+
+.mode-button {
+    background: #4a4a4a;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 5px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.mode-button.active {
+    background: #007bff; /* Active button background */
+    color: #fff;
+}
+
+.mode-button:hover {
+    background: #555555; /* Darker background on hover */
+}
+
+/* Label and select styling */
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background: #3a3a3a;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+/* Action button styling */
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background: #dc3545;
+    color: #fff;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal-actions button:hover {
+    background: #c82333; /* Darker red on hover */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

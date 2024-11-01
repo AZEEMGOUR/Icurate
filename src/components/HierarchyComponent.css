@@ -1,0 +1,289 @@
+.hierarchy-container {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+}
+
+.start-end-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.box {
+    background-color: #444;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    width: 45%;
+}
+
+.box label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.box input {
+    width: 100%;
+    padding: 5px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.instance-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.instance-actions {
+    display: none;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.instance-item:hover .instance-actions {
+    display: flex;
+}
+
+.instance-name-wrapper {
+    flex-grow: 1;
+}
+
+.browse-button {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.level-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.level-input {
+    width: 50px;
+    padding: 5px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: relative; /* Make the search-bar container relative to place the icon */
+}
+
+.search-bar input {
+    flex-grow: 1;
+    padding: 5px;
+    border: none;
+    border-radius: 2px;
+    margin-bottom: 10px;
+    background-color: #444;
+    color: white;
+    margin-right: 10px; /* Space between input and the settings icon */
+}
+
+.icons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.plus-icon, .settings-icon {
+    cursor: pointer;
+    font-size: 18px;
+    color: #aaa;
+    transition: color 0.3s;
+}
+
+.plus-icon:hover, .settings-icon:hover {
+    color: #fff; /* Change color on hover */
+}
+
+.folder-structure-container {
+    max-height: 400px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.folder-structure {
+    font-size: 14px;
+    white-space: nowrap;
+    width: max-content;
+}
+
+.folder-container {
+    margin: 1px 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.folder-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.folder-item.expanded .folder-name {
+    font-weight: bold;
+    color: rgb(235, 239, 240);
+}
+
+.folder-item.locked {
+    color: red;
+}
+
+.folder-level {
+    color: gray;
+    text-align: right;
+    width: 20px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.folder-name-wrapper {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.folder-name {
+    transition: color 0.3s, font-weight 0.3s, text-decoration 0.3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.folder-name.hidden {
+    text-decoration: line-through;
+}
+
+.folder-name.strikethrough {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.folder-icon {
+    margin-left: 10px;
+    color: white;
+}
+
+.folder-icon.expanded {
+    color: rgb(115, 106, 148);
+}
+
+.subfolder-container {
+    padding-left: 0.005px;
+    border-left: 1px solid #555;
+}
+
+.folder-actions {
+    display: none;
+    align-items: center;
+}
+
+.folder-item:hover .folder-actions {
+    display: flex;
+}
+
+.action-icon {
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.action-icon.locked {
+    color: red;
+}
+
+.action-icon:hover {
+    color: yellow;
+}
+
+.highlight {
+    background-color: yellow;
+    color: black;
+}
+
+.custom-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.custom-button:hover {
+    background-color: #0056b3;
+}
+
+.subinstance-container {
+    padding-left: 20px; /* Adjust the value to create the indentation */
+    border-left: 1px solid #555; /* This creates a visual line to indicate hierarchy */
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    width: 300px; /* Adjust width as per your need */
+    text-align: center;
+}
+
+.popup-content h4 {
+    margin-bottom: 20px;
+}
+
+.popup-content input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.popup-content input[type="number"] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.popup-content button {
+    margin-top: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup-content button:hover {
+    background-color: #777;
+}

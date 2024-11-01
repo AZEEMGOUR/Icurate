@@ -1,0 +1,143 @@
+.label-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    position: relative;
+    padding: 4px;
+    transition: background-color 0.3s;
+}
+
+.label-item:hover {
+    background-color: #181515;
+}
+
+.label-text {
+    flex-grow: 1;
+    margin-right: 10px;
+    transition: text-decoration 0.3s, color 0.3s;
+}
+
+.label-hidden {
+    text-decoration: line-through;
+}
+
+.label-locked {
+    color: red;
+}
+
+.label-icons {
+    display: none;
+    flex-shrink: 0;
+}
+
+.label-item:hover .label-icons {
+    display: flex;
+}
+
+.label-item:hover .label-text {
+    cursor: pointer;
+}
+
+.label-item input {
+    width: 100%;
+    padding: 4px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+.label-search {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.label-icons button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 5px;
+    color: #555;
+    transition: color 0.3s;
+}
+
+.label-icons button:hover {
+    color: #2f2f2f;
+}
+
+.sort-button, .visibility-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+    margin-left: 10px;
+    transition: color 0.3s;
+}
+
+.sort-button:hover, .visibility-button:hover {
+    color: #000;
+}
+
+.label-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.label-header-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.label-text {
+    flex-grow: 1;
+    margin-right: 10px;
+    transition: text-decoration 0.3s;
+}
+
+.label-hidden {
+    text-decoration: line-through;
+}
+
+.hovered-label-coordinates {
+    font-size: 14px;
+    color: gray;
+    margin-top: 10px;
+    text-align: right;
+    padding-right: 10px;
+}
+.selected-label-coordinates {
+    font-size: 14px;
+    color: gray;
+    margin-top: 10px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.label-item.selected {
+    background-color:black; /* Ensure no background color on selection */
+}
+
+.label-item.selected input {
+    background-color: transparent; /* Ensure no background color when editing */
+    border: none; /* Remove any border around the input */
+    outline: none; /* Remove the default focus outline */
+    color: inherit; /* Maintain the text color */
+    font-size: inherit; /* Maintain the font size */
+    width: 100%; /* Ensure input takes full width */
+}
+
+.label-item input::selection {
+    background: rgba(247, 3, 3, 0.575); /* Optional: Change the text selection background color */
+}
+
+
+

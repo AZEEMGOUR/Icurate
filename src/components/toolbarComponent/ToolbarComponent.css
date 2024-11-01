@@ -16,4 +16,14 @@
     border: none;
     cursor: pointer;
   }
+
+.mat-icon-button:hover {
+    background-color: #555; /* Slightly lighter background on hover */
+    color: #fff;
+}
+
+.mat-icon-button.selected {
+    background-color:blue; /* Even lighter background when selected */
+    color: #fff;
+}
   

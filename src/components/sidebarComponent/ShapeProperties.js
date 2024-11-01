@@ -1,66 +1,118 @@
-import React, { useEffect } from 'react';
-import './ShapeProperties.css';
+import React, { useEffect, useState } from 'react';
+import './PropertyWindow.css';
 
-const ShapeProperties = ({ selectedShapes }) => {
-  useEffect(() => {
-    // Trigger any required side-effects on shape selection change
-  }, [selectedShapes]);
+const PropertyWindow = ({ selectedShapes = [], layers = [], onUpdateShape }) => {
+    const [currentShapeIndex, setCurrentShapeIndex] = useState(0);
+    const [shapeProperties, setShapeProperties] = useState({});
 
-  if (!selectedShapes || selectedShapes.length === 0) {
-    return <div className="shape-properties-empty">No shape selected</div>;
-  }
+    useEffect(() => {
+        if (selectedShapes.length > 0) {
+            setCurrentShapeIndex(0); // Reset to the first shape when new shapes are selected
+            setShapeProperties(selectedShapes[0]); // Set shapeProperties to the first shape
+        }
+    }, [selectedShapes]);
 
-  // Handle multiple selections
-  const isMultiple = selectedShapes.length > 1;
+    const handleNextShape = () => {
+        if (selectedShapes.length > 0) {
+            const nextIndex = (currentShapeIndex + 1) % selectedShapes.length;
+            setCurrentShapeIndex(nextIndex);
+            setShapeProperties(selectedShapes[nextIndex]);
+        }
+    };
 
-  const commonProperties = {
-    type: isMultiple ? "Multiple" : selectedShapes[0].type,
-    layer_name: isMultiple ? "Multiple" : selectedShapes[0].layer_name,
-    layerId: isMultiple ? "Multiple" : selectedShapes[0].layerId,
-    datatype_name: isMultiple ? "Multiple" : selectedShapes[0].datatype_name,
-    x: isMultiple ? "Multiple" : selectedShapes[0].x,
-    y: isMultiple ? "Multiple" : selectedShapes[0].y,
-    width: isMultiple ? "Multiple" : selectedShapes[0].width,
-    height: isMultiple ? "Multiple" : selectedShapes[0].height,
-  };
+    const handlePreviousShape = () => {
+        if (selectedShapes.length > 0) {
+            const prevIndex = (currentShapeIndex - 1 + selectedShapes.length) % selectedShapes.length;
+            setCurrentShapeIndex(prevIndex);
+            setShapeProperties(selectedShapes[prevIndex]);
+        }
+    };
 
-  return (
-    <div className="shape-properties-container">
-      <h3 className="shape-properties-header">Shape Properties</h3>
-      <div className="shape-property">
-        <label>Type:</label>
-        <span>{commonProperties.type || 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>Layer Name:</label>
-        <span>{commonProperties.layer_name || 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>Layer Number:</label>
-        <span>{commonProperties.layerId !== undefined ? commonProperties.layerId : 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>Datatype Name:</label>
-        <span>{commonProperties.datatype_name || 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>x-coordinate:</label>
-        <span>{commonProperties.x !== undefined ? commonProperties.x : 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>y-coordinate:</label>
-        <span>{commonProperties.y !== undefined ? commonProperties.y : 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>Width:</label>
-        <span>{commonProperties.width !== undefined ? commonProperties.width : 'N/A'}</span>
-      </div>
-      <div className="shape-property">
-        <label>Height:</label>
-        <span>{commonProperties.height !== undefined ? commonProperties.height : 'N/A'}</span>
-      </div>
-    </div>
-  );
+    const handleChange = (property, value) => {
+        // Update the local shapeProperties state instantly
+        const updatedShape = { ...shapeProperties, [property]: value };
+        setShapeProperties(updatedShape);
+
+        // Call the update handler immediately to update the shape in the parent component
+        onUpdateShape(updatedShape.id, property, value);
+    };
+
+    const findMatchingLayer = (shape) => {
+        return layers.find(
+            (layer) =>
+                layer.layer_number.toString() === shape.layerId &&
+                layer.datatype_number.toString() === shape.datatypeId
+        );
+    };
+
+    const renderProperties = (shape) => {
+        if (!shape) return null;
+
+        const matchingLayer = findMatchingLayer(shape);
+
+        if (!matchingLayer) {
+            return <div>No matching layer found for this shape</div>;
+        }
+
+        return (
+            <div className="property-group">
+                <div className="property-header">
+                    <div className="property-title rectangle">Rectangle</div>
+                    <div className="property-buttons">
+                        <button className="triangle-button" onClick={handlePreviousShape}>&#9668;</button>
+                        <span className="property-count">{currentShapeIndex + 1}</span>
+                        <button className="triangle-button" onClick={handleNextShape}>&#9658;</button>
+                    </div>
+                </div>
+                <div className="property-item">Layer Name</div>
+                <div className="property-item">{matchingLayer.layer_name || '--'}</div>
+                <div className="property-item">Datatype Name</div>
+                <div className="property-item">{matchingLayer.datatype_name || '--'}</div>
+                <div className="property-item">x-cord</div>
+                <div className="property-item">
+                    <input
+                        type="number"
+                        value={shapeProperties.x || ''}
+                        onChange={(e) => handleChange('x', parseFloat(e.target.value))}
+                    />
+                </div>
+                <div className="property-item">y-cord</div>
+                <div className="property-item">
+                    <input
+                        type="number"
+                        value={shapeProperties.y || ''}
+                        onChange={(e) => handleChange('y', parseFloat(e.target.value))}
+                    />
+                </div>
+                <div className="property-item">Width</div>
+                <div className="property-item">
+                    <input
+                        type="number"
+                        value={shapeProperties.width || ''}
+                        onChange={(e) => handleChange('width', parseFloat(e.target.value))}
+                    />
+                </div>
+                <div className="property-item">Height</div>
+                <div className="property-item">
+                    <input
+                        type="number"
+                        value={shapeProperties.height || ''}
+                        onChange={(e) => handleChange('height', parseFloat(e.target.value))}
+                    />
+                </div>
+            </div>
+        );
+    };
+
+    return (
+        <div className="property-window">
+            {selectedShapes.length > 0 ? (
+                renderProperties(selectedShapes[currentShapeIndex])
+            ) : (
+                <div>No shapes selected</div>
+            )}
+        </div>
+    );
 };
 
-export default ShapeProperties;
+export default PropertyWindow;

@@ -357,3 +357,54 @@ input:checked + .slider:before {
 }
 
 /* ...other styles... */
+.add-layer-form .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures vertical alignment */
+    margin-bottom: 15px;
+}
+
+.add-layer-form .form-row input[type="text"],
+.add-layer-form .form-row input[type="number"],
+.add-layer-form .form-row input[type="color"] {
+    width: 48%;
+    padding: 8px 12px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #1c1c1c;
+    color: #fff;
+    font-size: 14px;
+}
+
+.add-layer-form .form-row .slider-container {
+    display: flex;
+    align-items: center; /* Ensures label and slider are vertically centered */
+    width: 48%;
+}
+
+.add-layer-form .form-row .slider-container label {
+    margin-right: 10px;
+    font-size: 14px;
+    color: #ccc;
+}
+
+.add-layer-form .form-row .slider-container input[type="range"] {
+    flex-grow: 1;
+    cursor: pointer;
+}
+.add-layer-form .addlayerbutton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Make the button take the full width of its container */
+}
+
+.add-layer-form .addlayerbutton:hover {
+    background-color: #0056b3;
+}

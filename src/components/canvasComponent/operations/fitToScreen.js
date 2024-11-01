@@ -1,53 +1,46 @@
-const fitToScreen = (stage, layer, shapes) => {
-    alert("Main function is called");
-  
-    if (!shapes.length) {
-      console.log("No shapes to fit");
-      return; // No shapes to fit
-    }
-  
-    // Initialize the bounding box variables
-    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
-  
-    shapes.forEach(shape => {
-      if (typeof shape.getClientRect === 'function') {
-        const shapeBounds = shape.getClientRect();
-        minX = Math.min(minX, shapeBounds.x);
-        minY = Math.min(minY, shapeBounds.y);
-        maxX = Math.max(maxX, shapeBounds.x + shapeBounds.width);
-        maxY = Math.max(maxY, shapeBounds.y + shapeBounds.height);
-      } else {
-        console.log("Invalid shape:", shape);
-      }
-    });
-  
-    if (minX === Infinity || minY === Infinity || maxX === -Infinity || maxY === -Infinity) {
-      console.log("No valid shapes found");
-      return;
-    }
-  
-    // Calculate the scale to fit all shapes within the stage
-    const stageWidth = stage.width();
-    const stageHeight = stage.height();
-    const shapesWidth = maxX - minX;
-    const shapesHeight = maxY - minY;
-  
-    const scaleX = stageWidth / shapesWidth;
-    const scaleY = stageHeight / shapesHeight;
-    const scale = Math.min(scaleX, scaleY);
-  
-    // Apply the calculated scale and center the shapes
-    stage.scale({ x: scale, y: scale });
-    stage.position({
-      x: stageWidth / 2 - (minX + shapesWidth / 2) * scale,
-      y: stageHeight / 2 - (minY + shapesHeight / 2) * scale,
-    });
-  
-    console.log("New stage position:", stage.position());
-  
-    // Redraw the layer to apply changes
-    layer.batchDraw();
-  };
-  
-  export default fitToScreen;
-  
+const fitToScreen = (stageRef, layerRef, shapes) => {
+  if (stageRef.current && layerRef.current && shapes.length > 0) {
+      const stage = stageRef.current;
+
+      // Calculate the bounding box of all shapes
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+
+      shapes.forEach(shape => {
+          minX = Math.min(minX, shape.x);
+          minY = Math.min(minY, shape.y);
+          maxX = Math.max(maxX, shape.x + shape.width);
+          maxY = Math.max(maxY, shape.y + shape.height);
+      });
+
+      const boundingBoxWidth = maxX - minX;
+      const boundingBoxHeight = maxY - minY;
+
+      // Get the available canvas size (stage)
+      const canvasWidth = stage.width();
+      const canvasHeight = stage.height();
+
+      // Calculate scale factors to fit the bounding box within the canvas
+      const scaleX = canvasWidth / boundingBoxWidth;
+      const scaleY = canvasHeight / boundingBoxHeight;
+      const scale = Math.min(scaleX, scaleY);  // Use the smaller scale to fit both width and height
+
+      // Calculate the center of the bounding box
+      const boundingBoxCenterX = minX + boundingBoxWidth / 2;
+      const boundingBoxCenterY = minY + boundingBoxHeight / 2;
+
+      // Adjust the position based on the stage's center (taking centered origin into account)
+      const stageCenterX = canvasWidth / 2;
+      const stageCenterY = canvasHeight / 2;
+
+      // The new position is the difference between the stage center and the scaled bounding box center
+      const offsetX = stageCenterX - (boundingBoxCenterX * scale);
+      const offsetY = stageCenterY - (boundingBoxCenterY * scale);
+
+      // Apply the calculated scale and position
+      stage.scale({ x: scale, y: scale });
+      stage.position({ x: offsetX, y: offsetY });
+      stage.batchDraw();
+  }
+};
+
+export default fitToScreen;

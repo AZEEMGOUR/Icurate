@@ -10,10 +10,12 @@ const groupShapes = (stageRef, shapes, setShapes, setSelectedShapes) => {
 
     const startGroup = (e) => {
         if (!isGrouping) {
-            const pos = stage.getPointerPosition();
+            const pos = stage.getRelativePointerPosition();
+            const adjustedX = pos.x - stage.width() / 2;
+            const adjustedY = pos.y - stage.height() / 2;
             tempGroupRect = new Konva.Rect({
-                x: pos.x,
-                y: pos.y,
+                x: adjustedX,
+                y: adjustedY,
                 width: 0,
                 height: 0,
                 stroke: 'blue',
@@ -30,9 +32,11 @@ const groupShapes = (stageRef, shapes, setShapes, setSelectedShapes) => {
 
     const updateGroup = (e) => {
         if (isGrouping && tempGroupRect) {
-            const pos = stage.getPointerPosition();
-            tempGroupRect.width(pos.x - tempGroupRect.x());
-            tempGroupRect.height(pos.y - tempGroupRect.y());
+            const pos = stage.getRelativePointerPosition();
+            const adjustedX = pos.x - stage.width() / 2;
+            const adjustedY = pos.y - stage.height() / 2;
+            tempGroupRect.width(adjustedX - tempGroupRect.x());
+            tempGroupRect.height(adjustedY - tempGroupRect.y());
             layer.batchDraw();
         }
     };
@@ -86,14 +90,32 @@ const groupShapes = (stageRef, shapes, setShapes, setSelectedShapes) => {
     };
 
     const haveIntersection = (shape, rect) => {
-        const shapePolygon = [
-            [shape.x, shape.y],
-            [shape.x + shape.width, shape.y],
-            [shape.x + shape.width, shape.y + shape.height],
-            [shape.x, shape.y + shape.height],
-            [shape.x, shape.y]
-        ];
-
+        let shapePolygon = [];
+    
+        // For Rectangle
+        if (shape.type === 'Rectangle') {
+            shapePolygon = [
+                [shape.x, shape.y],
+                [shape.x + shape.width, shape.y],
+                [shape.x + shape.width, shape.y + shape.height],
+                [shape.x, shape.y + shape.height],
+                [shape.x, shape.y]
+            ];
+        }
+        // For Polygon
+        else if (shape.type === 'Polygon' && shape.points && Array.isArray(shape.points)) {
+            shapePolygon = [];
+            for (let i = 0; i < shape.points.length; i += 2) {
+                shapePolygon.push([shape.points[i], shape.points[i + 1]]);
+            }
+            // Close the polygon if it's not already closed
+            if (shapePolygon.length > 0 && 
+                (shapePolygon[0][0] !== shapePolygon[shapePolygon.length - 1][0] || 
+                 shapePolygon[0][1] !== shapePolygon[shapePolygon.length - 1][1])) {
+                shapePolygon.push([...shapePolygon[0]]); // Add the first point to close the loop
+            }
+        }
+    
         const rectPolygon = [
             [rect.x, rect.y],
             [rect.x + rect.width, rect.y],
@@ -101,11 +123,19 @@ const groupShapes = (stageRef, shapes, setShapes, setSelectedShapes) => {
             [rect.x, rect.y + rect.height],
             [rect.x, rect.y]
         ];
-
+    
+        // Check if polygons are valid
+        if (shapePolygon.length === 0 || rectPolygon.length === 0) {
+            console.error("Empty or invalid polygon detected", { shapePolygon, rectPolygon });
+            return false;  // No intersection if either polygon is invalid
+        }
+    
+        // Perform the intersection check
         const intersection = polygonClipping.intersection([shapePolygon], [rectPolygon]);
-
-        return intersection.length > 0;
+        return intersection && intersection.length > 0;
     };
+    
+    
 
     stage.on('mousedown', startGroup);
 
@@ -114,6 +144,7 @@ const groupShapes = (stageRef, shapes, setShapes, setSelectedShapes) => {
             if (tempGroupRect) {
                 tempGroupRect.destroy();
                 tempGroupRect = null;
+                
             }
             isGrouping = false;
             stage.off('mousemove', updateGroup);

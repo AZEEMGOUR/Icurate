@@ -1,17 +1,240 @@
 .canvas-toolbar {
-    background-color: black;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .mat-icon-button {
-    color: white;
-  }
-  
-  .custom-icon {
-    width: 24px;
-    height: 24px;
-    filter: invert(1); /* This will invert the color of the images to white */
-  }
-  
+  background-color: black;
+  display: flex;
+  justify-content: space-between; /* Keeps the icons on the left and design elements on the right */
+  align-items: center;
+  padding: 10px;
+}
+
+.toolbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mat-icon-button {
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.design-dropdown {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: black;
+  padding: 5px;
+  font-size: 14px;
+  min-width: 150px;
+  margin: 0;  /* Ensure no extra margin */
+  display: block;  /* Ensure proper display */
+}
+
+
+.project-name-input {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  color: black;
+  font-size: 14px;
+  min-width: 150px;
+}
+.mat-icon-button:hover {
+  background-color: #555; /* Lighter dark color on hover */
+  color: #fff; /* Keep the text/icon color white */
+}
+
+/* Selected/focused icon */
+.mat-icon-button.selected {
+  background-color: #777; /* Lighter background to indicate selection */
+  color: #fff; /* Keep the text/icon color white */
+}
+.design-dropdown-container {
+  position: relative;
+  display: inline-block;
+  width: 350px; /* Adjust width as needed */
+}
+
+.selected-design-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+  cursor: pointer;
+  border: 1px solid #777;
+  width: 300px;
+  height: 10px;
+  margin-bottom: 10px;
+}
+
+.dropdown-arrow {
+  margin-left: 10px;
+  color: white;
+}
+
+.design-dropdown {
+  width: 100% !important; /* Ensure the dropdown width matches the container */
+  min-width: 100px; /* Increase minimum width */
+  max-height: 250px; /* Limit the height of the dropdown */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  box-sizing: border-box;
+  position: absolute;
+  top: 100%; /* Position dropdown below the selected design display */
+  left: 0;
+  z-index: 1000; /* Ensure dropdown is above other elements */
+  display: none; /* Initially hide dropdown */
+}
+
+
+.design-dropdown.show {
+  display: block; /* Show dropdown when toggled */
+}
+
+.design-dropdown input {
+  width: 100px;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: #555;
+  color: white;
+  border: 1px solid #777;
+}
+
+.design-dropdown select {
+  width: 100%;
+  border: none;
+  background-color: #333;
+  color: white;
+  appearance: none; /* Remove default styling */
+  -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+  -moz-appearance: none; /* Remove default styling for Firefox */
+  overflow-y: scroll; /* Ensure the scrollbar is active */
+}
+
+.design-dropdown option {
+  padding: 5px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.design-dropdown option:hover {
+  background-color: #555;
+}
+
+/* Custom scrollbar for the dropdown */
+.design-dropdown select::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.design-dropdown select::-webkit-scrollbar-thumb {
+  background-color: #777 !important; /* Dark scrollbar thumb */
+  border-radius: 4px !important;
+}
+
+.design-dropdown select::-webkit-scrollbar-track {
+  background-color: #333 !important; /* Dark scrollbar track */
+}
+
+.design-dropdown select::-webkit-scrollbar-corner {
+  background-color: #333 !important; /* Corner between horizontal and vertical scrollbar */
+}
+
+/* Save menu container styling */
+.save-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Save menu styling */
+.save-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 1000;
+  padding: 5px 0;
+  min-width: 120px;
+  border: 1px solid #ddd;
+}
+
+/* Menu item styling */
+.save-menu-item {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.save-menu-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Submenu arrow icon styling */
+.submenu-arrow {
+  float: right;
+  vertical-align: middle;
+}
+
+/* Save As submenu styling */
+.save-as-submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  z-index: 1000;
+  padding: 5px 0;
+  min-width: 100px;
+  border: 1px solid #ddd;
+}
+
+/* Submenu item styling */
+.submenu-item {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.submenu-item:hover {
+  background-color: #f1f1f1;
+}
+/* Add this CSS rule to the design-dropdown-container */
+.design-dropdown-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Make sure the input fields do not take full width */
+.design-dropdown-container input[type="number"] {
+  width: 60px; /* Set a fixed width suitable for your input */
+  margin-left: 10px; /* Add some space between the dropdown and the inputs */
+  box-sizing: border-box;
+}
+
+
+
+
